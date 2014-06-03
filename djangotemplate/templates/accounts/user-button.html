@@ -14,9 +14,12 @@
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <li><a href="{% url "accounts/logout" %}">アカウント設定</a></li>
+    {% if user.is_superuser %}
+      <li><a href="{% url "admin:index" %}">サイト設定</a></li>
+    {% endif %}
+    <li><a href="{% url "accounts:logout" %}">アカウント設定</a></li>
     <li class="divider"></li>
-    <li><a href="{% url "accounts/logout" %}">ログアウト</a></li>
+    <li><a href="{% url "accounts:logout" %}">ログアウト</a></li>
   </ul>
   </li>
 </ul>
@@ -25,7 +28,7 @@
   <li class="dropdown">
   <button type="button" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown">ログイン</button>
   <div class="dropdown-menu">
-    <form action="{% url "accounts/login" %}" method="post" id="dropdown-login-form">
+    <form action="{% url "accounts:login" %}" method="post" id="dropdown-login-form">
       <fieldset>
         {% csrf_token %}
         {% bootstrap_form login_form %}

@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'djangotemplate.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^login/$', LoginView.as_view(), name="accounts/login"),
-    url(r'^logout/$', LogoutView.as_view(), { "next_page": reverse_lazy("top") }, name="accounts/logout"),
+    url(r'^login/$', LoginView.as_view(), name="login"),
+    url(r'^logout/$', LogoutView.as_view(), { "next_page": reverse_lazy("index") }, name="logout"),
 )
 

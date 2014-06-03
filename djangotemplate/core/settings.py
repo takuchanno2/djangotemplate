@@ -96,6 +96,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Auth
-LOGIN_REDIRECT_URL = reverse_lazy('top')
-LOGIN_URL = reverse_lazy('accounts/login')
-LOGOUT_URL = reverse_lazy('accounts/logout')
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGIN_URL = reverse_lazy('accounts:login')
+LOGOUT_URL = reverse_lazy('accounts:logout')
