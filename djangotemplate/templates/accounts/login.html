@@ -8,7 +8,7 @@
 {% block content %}
 <form action="{% url "accounts/login" %}" method="post" class="form-horizontal" id="login-form">
   <fieldset>
-    <legend>{{ app_name }} にログイン</legend>
+    <legend>{{ project_name }} にログイン</legend>
     {% csrf_token %}
     {% bootstrap_form form layout="horizontal" %}
 

@@ -3,8 +3,8 @@
 from django.contrib.auth.forms import AuthenticationForm
 from core import settings
 
-def app_name(request):
+def project_name(request):
     return {
-            "app_name": settings.APP_NAME,
+            "project_name": settings.PROJECT_NAME,
     }
 

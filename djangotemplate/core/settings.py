@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 from django.conf import global_settings
 from django.core.urlresolvers import reverse_lazy
 
-APP_NAME = "なんかのサイト"
+PROJECT_NAME = "なんかのサイト"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -57,7 +57,7 @@ MIDDLEWARE_CLASSES = (
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',  
-    'core.context_processors.app_name',
+    'core.context_processors.project_name',
     'accounts.context_processors.login_form',
 )
 
