@@ -37,8 +37,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="accounts\admin.py" />
-    <Compile Include="accounts\context_processors.py" />
     <Compile Include="accounts\models.py" />
+    <Compile Include="accounts\templatetags\accounts.py" />
+    <Compile Include="accounts\templatetags\__init__.py" />
     <Compile Include="accounts\tests.py" />
     <Compile Include="accounts\urls.py" />
     <Compile Include="accounts\views.py" />
@@ -70,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="accounts\" />
+    <Folder Include="accounts\templatetags\" />
     <Folder Include="core\" />
     <Folder Include="main\" />
     <Folder Include="static\" />
