@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="accounts\admin.py" />
     <Compile Include="accounts\models.py" />
+    <Compile Include="accounts\navitems.py" />
     <Compile Include="accounts\templatetags\accounts.py" />
     <Compile Include="accounts\templatetags\__init__.py" />
     <Compile Include="accounts\tests.py" />
@@ -46,9 +47,13 @@
     <Compile Include="accounts\__init__.py" />
     <Compile Include="core\context_processors.py" />
     <Compile Include="core\settings.py" />
+    <Compile Include="navbar\templatetags\navbar.py" />
+    <Compile Include="navbar\templatetags\__init__.py" />
+    <Compile Include="core\navitems.py" />
     <Compile Include="core\urls.py" />
     <Compile Include="core\wsgi.py" />
     <Compile Include="core\__init__.py" />
+    <Compile Include="navbar\__init__.py" />
     <Compile Include="main\admin.py" />
     <Compile Include="main\models.py" />
     <Compile Include="main\tests.py" />
@@ -73,7 +78,9 @@
     <Folder Include="accounts\" />
     <Folder Include="accounts\templatetags\" />
     <Folder Include="core\" />
+    <Folder Include="navbar\" />
     <Folder Include="main\" />
+    <Folder Include="navbar\templatetags\" />
     <Folder Include="static\" />
     <Folder Include="templates\" />
     <Folder Include="templates\accounts\" />

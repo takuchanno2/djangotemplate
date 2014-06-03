@@ -44,7 +44,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
+    'core',
     'accounts',
+    'navbar',
     )
 
 MIDDLEWARE_CLASSES = (
@@ -95,7 +97,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Auth
+# Auth settings
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGIN_URL = reverse_lazy('accounts:login')
 LOGOUT_URL = reverse_lazy('accounts:logout')
+
+# Navbar app. settings
+ROOT_NAVBAR_CONF = 'core.navitems'
