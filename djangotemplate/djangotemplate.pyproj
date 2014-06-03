@@ -87,7 +87,7 @@
     <Content Include="templates\base\sidebar.html" />
     <Content Include="templates\base\skeleton.html" />
     <Content Include="templates\main\sidebar.html" />
-    <Content Include="templates\main\top.html" />
+    <Content Include="templates\main\index.html" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Python Tools\Microsoft.PythonTools.Django.targets" />
   <ProjectExtensions>

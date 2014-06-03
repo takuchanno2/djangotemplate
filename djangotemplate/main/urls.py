@@ -9,6 +9,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'djangotemplate.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^$', TopPageView.as_view(), name="top"),
-    url(r'^(?P<pk>.*)/$', TopPageView.as_view(), name="top"),
+    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^(?P<pk>.*)/$', IndexView.as_view()),
 )
