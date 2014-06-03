@@ -1,9 +1,5 @@
 {% load bootstrap3 %}
-{% load accounts %}
 {% load url from future %}
-
-{% prepare_login_form as login_form %}
-
 {% if user.is_authenticated %}
 <ul class="nav navbar-nav navbar-right">
   <li class="dropdown">

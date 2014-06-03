@@ -44,7 +44,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
-    'accounts',
     )
 
 MIDDLEWARE_CLASSES = (
@@ -59,6 +58,7 @@ MIDDLEWARE_CLASSES = (
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',  
     'core.context_processors.project_name',
+    'accounts.context_processors.login_form',
 )
 
 ROOT_URLCONF = 'core.urls'
