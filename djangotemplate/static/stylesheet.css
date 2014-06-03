@@ -1,0 +1,15 @@
+.navbar-static-top {
+  margin-bottom: 20px;
+}
+
+#dropdown-login-form {
+  width: 250px;
+  padding: 15px;
+  margin: 0px;
+}
+
+#dropdown-login-form .login-button {
+  height: 32px;
+  width: 100%;
+}
+

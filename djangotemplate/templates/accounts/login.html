@@ -1,0 +1,27 @@
+{% extends "base/no-sidebar.html" %}
+{% load bootstrap3 %}
+
+{% block title %}
+ログイン
+{% endblock %}
+
+{% block content %}
+<form action="{% url "accounts/login" %}" method="post" class="form-horizontal" id="login-form">
+  <fieldset>
+    <legend>{{ app_name }} にログイン</legend>
+    {% csrf_token %}
+    {% bootstrap_form form layout="horizontal" %}
+
+    <div class="form-group">
+      <div class="col-md-2">&nbsp;</div>
+      <div class="col-md-4">
+        <label><input type="checkbox" name="remember_me" checked="checked" />ログインを記憶</label>
+      </div>
+    </div>
+    
+    {% buttons submit="ログイン" layout="horizontal" %}{% endbuttons %}
+    <input type="hidden" name="next" value="{{ next }}" />
+  </fieldset>
+</form>
+{% endblock %}
+

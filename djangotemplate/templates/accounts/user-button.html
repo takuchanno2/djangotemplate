@@ -1,0 +1,46 @@
+{% load bootstrap3 %}
+{% load url from future %}
+{% if user.is_authenticated %}
+<ul class="nav navbar-nav navbar-right">
+  <li class="dropdown">
+    {% if user.is_staff %}
+      <button type="button" class="btn btn-warning navbar-btn dropdown-toggle" data-toggle="dropdown">
+      {% bootstrap_icon "cog" %}
+    {% else %}
+      <button type="button" class="btn btn-info navbar-btn dropdown-toggle" data-toggle="dropdown">
+      {% bootstrap_icon "user" %} 
+    {% endif %}
+    {{ user.username }}
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="{% url "accounts/logout" %}">アカウント設定</a></li>
+    <li class="divider"></li>
+    <li><a href="{% url "accounts/logout" %}">ログアウト</a></li>
+  </ul>
+  </li>
+</ul>
+{% else %}
+<ul class="nav navbar-nav navbar-right">
+  <li class="dropdown">
+  <button type="button" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown">ログイン</button>
+  <div class="dropdown-menu">
+    <form action="{% url "accounts/login" %}" method="post" id="dropdown-login-form">
+      <fieldset>
+        {% csrf_token %}
+        {% bootstrap_form login_form %}
+
+        <div class="control-group">
+          <label><input type="checkbox" name="remember_me" checked="checked" />ログインを記憶</label>
+        </div>
+        <div>
+          <input type="submit" class="btn btn-primary login-button"  value="ログイン" />
+        </div>
+        <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+      </fieldset>
+    </form>
+  </div>
+  </li>
+</ul>
+{% endif %}
+
