@@ -1,4 +1,5 @@
 {% extends "base/no-sidebar.html" %}
+{% load bootstrap3 %}
 {% load navbar %}
 
 {% block title %}Navbar Test{% endblock %}
@@ -6,13 +7,20 @@
 {% block content %}
 {% prepare_navbar as navitems %}
 
-
 {% with navitems|first as first_item %}
-  <h2>{{ first_item.title|make_link:first_item.url }}</h2>
+  {% if first_item.active %}
+    <h2><b>{{ first_item|stylize }}</b></h2>
+  {% else %}
+    <h2>{{ first_item|stylize }}</h2>
+  {% endif %}
   <ul>
     {% for item in navitems|slice:"1:" %}
       {% if item.attribute != "end-sub" %}
-        <li>{{ item.title|make_link:item.url }}</li>
+        {% if item.active %}
+          <li><b>{{ item|stylize }}</b></li>
+        {% else %}
+          <li>{{ item|stylize }}</li>
+        {% endif %}
         {% if item.attribute == "begin-sub" %}
           <ul>
         {% endif %}

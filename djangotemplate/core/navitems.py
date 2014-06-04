@@ -6,7 +6,9 @@ from navbar import navitem, include
 from core import settings
 
 navitems = navitem(settings.PROJECT_NAME, reverse_lazy("index"),
-    navitem("ホーム", reverse_lazy("index"), icon="home"), 
+    navitem("ホーム", reverse_lazy("index"), icon="home"),
+    include("navbar.navitems"),
+    include("accounts.navitems"),
     navitem("検索エンジン", None,
         navitem("Google", "http://google.com/"),
         navitem("Yahoo", "http://yahoo.co.jp/"),

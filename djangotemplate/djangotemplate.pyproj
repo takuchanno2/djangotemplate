@@ -47,6 +47,7 @@
     <Compile Include="accounts\__init__.py" />
     <Compile Include="core\context_processors.py" />
     <Compile Include="core\settings.py" />
+    <Compile Include="navbar\navitems.py" />
     <Compile Include="navbar\templatetags\navbar.py" />
     <Compile Include="navbar\templatetags\__init__.py" />
     <Compile Include="core\navitems.py" />
@@ -100,7 +101,7 @@
     <Content Include="templates\base\skeleton.html" />
     <Content Include="templates\main\sidebar.html" />
     <Content Include="templates\main\index.html" />
-    <Content Include="templates\navbar\example.html" />
+    <Content Include="templates\navbar\index.html" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Python Tools\Microsoft.PythonTools.Django.targets" />
   <ProjectExtensions>

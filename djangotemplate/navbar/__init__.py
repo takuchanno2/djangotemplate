@@ -7,14 +7,14 @@ from collections import namedtuple
 NavItem = namedtuple("NavItem", "title url icon subitems")
 navitem_list = []
 
+NavListItem = namedtuple("NavListItem", "depth attribute title url icon active")
+
 def add_navitem_recursively(navitem, list, depth=0):
-    list.append({
-        "depth": depth,
-        "attribute": ("begin-sub" if navitem.subitems else None),
-        "title": navitem.title,
-        "url": navitem.url,
-        "icon": navitem.icon,
-    })
+    list.append(NavListItem(
+        depth,
+        ("begin-sub" if navitem.subitems else None),
+        navitem.title, navitem.url, navitem.icon, False
+    ))
 
     depth = depth + 1
 
@@ -22,10 +22,7 @@ def add_navitem_recursively(navitem, list, depth=0):
         add_navitem_recursively(subitem, list, depth)
 
     if navitem.subitems:
-        list.append({
-            "depth": depth,
-            "attribute": "end-sub",
-        })
+        list.append(NavListItem(depth, "end-sub", None, None, None, False))
 
     return
         
@@ -38,23 +35,20 @@ def construct_navbar_structure():
     add_navitem_recursively(navitem_top, navitem_list)
 
     if navitem_top.subitems:
-        navitem_list.append({
-                "depth": 0,
-                "attribute": "end-sub",
-        })
+        navitem_list.append(NavListItem(0, "end-sub", None, None, None, False))
 
     return
 
 # titleとmoduleは省略したら、省略先のtopを使うように
 def include(module, title=None, url=None, **kwargs):
-    mod = import_module(conf)
+    navitems = import_module(module).navitems
 
-    navitems = mod.navitems
-    navitems.title = title or navitems.title
-    navitems.url = url or navitems.url
-    navitems.icon = kwargs.get("icon") or navitems.icon
-
-    return navitems
+    return NavItem(
+        title or navitems.title,
+        url or navitems.url, 
+        kwargs.get("icon") or navitems.icon,
+        navitems.subitems
+    )
 
 def navitem(title, url, *args, **kwargs):
     return NavItem(title, url, kwargs.get("icon"), args)
