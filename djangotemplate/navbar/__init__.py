@@ -10,6 +10,7 @@ navitem_list = []
 def add_navitem_recursively(navitem, list, depth=0):
     list.append({
         "depth": depth,
+        "attribute": ("begin-sub" if navitem.subitems else None),
         "title": navitem.title,
         "url": navitem.url,
         "icon": navitem.icon,
@@ -19,6 +20,10 @@ def add_navitem_recursively(navitem, list, depth=0):
 
     for subitem in navitem.subitems:
         add_navitem_recursively(subitem, list, depth)
+        list.append({
+            "depth": depth,
+            "attribute": "end-sub",
+        })
 
     return
         

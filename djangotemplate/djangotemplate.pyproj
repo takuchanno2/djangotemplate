@@ -53,6 +53,8 @@
     <Compile Include="core\urls.py" />
     <Compile Include="core\wsgi.py" />
     <Compile Include="core\__init__.py" />
+    <Compile Include="navbar\urls.py" />
+    <Compile Include="navbar\views.py" />
     <Compile Include="navbar\__init__.py" />
     <Compile Include="main\admin.py" />
     <Compile Include="main\models.py" />
@@ -86,6 +88,7 @@
     <Folder Include="templates\accounts\" />
     <Folder Include="templates\base\" />
     <Folder Include="templates\main\" />
+    <Folder Include="templates\navbar\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="static\javascript.js" />
@@ -97,6 +100,7 @@
     <Content Include="templates\base\skeleton.html" />
     <Content Include="templates\main\sidebar.html" />
     <Content Include="templates\main\index.html" />
+    <Content Include="templates\navbar\example.html" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Python Tools\Microsoft.PythonTools.Django.targets" />
   <ProjectExtensions>

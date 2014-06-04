@@ -1,0 +1,20 @@
+{% extends "base/no-sidebar.html" %}
+{% load navbar %}
+
+{% block title %}Navbar Test{% endblock %}
+
+{% block content %}
+{% prepare_navbar as navitems %}
+{% for item in navitems %}
+  {% ifequal item.depth 0 %}
+  <h2>
+  {% if item.url %}
+    <a href="{{ item.url }}">{{ item.title }}</a>
+  {% else %}
+    {{ item.title }}
+  </h2>
+  {% endif %}
+  {% else %}
+  {% endifequal %}
+{% endfor %}
+{% endblock %}

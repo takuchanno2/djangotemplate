@@ -12,6 +12,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
+    url(r'^navbar/', include('navbar.urls', namespace='navbar')),
     url(r'^$', include('main.urls')),
     url(r'^', include('main.urls')),
 )
