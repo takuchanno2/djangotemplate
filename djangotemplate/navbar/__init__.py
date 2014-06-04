@@ -4,31 +4,44 @@ from django.conf import settings
 from importlib import import_module
 from collections import namedtuple
 
-NavItem = namedtuple("NavItem", "title icon url")
-NavItemGroup = namedtuple("NavItemGroup", "title icon items")
+NavItem = namedtuple("NavItem", "title url icon subitems")
+navitem_list = []
 
+def add_navitem_recursively(navitem, list, depth=0):
+    list.append({
+        "depth": depth,
+        "title": navitem.title,
+        "url": navitem.url,
+        "icon": navitem.icon,
+    })
+
+    depth = depth + 1
+
+    for subitem in navitem.subitems:
+        add_navitem_recursively(subitem, list, depth)
+
+    return
+        
 def construct_navbar_structure():
     try:
-        conf = settings.ROOT_NAVBAR_CONF
+        navitem_top = import_module(settings.ROOT_NAVBAR_CONF).navitems
     except:
         raise
 
-    mod = import_module(conf)
-    pass
+    add_navitem_recursively(navitem_top, navitem_list)
 
-# メニューのrootの要素のtitle, iconはbrandとして表示するか
-def item_group(title, *args, icon=None):
-    return NavItemGroup(title, icon, args)
+    return
 
 # titleとmoduleは省略したら、省略先のtopを使うように
-def include(module, title=None, icon=None):
+def include(module, title=None, url=None, **kwargs):
     mod = import_module(conf)
 
     navitems = mod.navitems
     navitems.title = title or navitems.title
-    navitems.icon = icon or navitems.icon
+    navitems.url = url or navitems.url
+    navitems.icon = kwargs.get("icon") or navitems.icon
 
     return navitems
 
-def item(title, url, icon=None):
-    return NavItem(title, icon, url)
+def navitem(title, url, *args, **kwargs):
+    return NavItem(title, url, kwargs.get("icon"), args)
