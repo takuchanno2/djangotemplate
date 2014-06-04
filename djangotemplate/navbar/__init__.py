@@ -20,6 +20,8 @@ def add_navitem_recursively(navitem, list, depth=0):
 
     for subitem in navitem.subitems:
         add_navitem_recursively(subitem, list, depth)
+
+    if navitem.subitems:
         list.append({
             "depth": depth,
             "attribute": "end-sub",
@@ -34,6 +36,12 @@ def construct_navbar_structure():
         raise
 
     add_navitem_recursively(navitem_top, navitem_list)
+
+    if navitem_top.subitems:
+        navitem_list.append({
+                "depth": 0,
+                "attribute": "end-sub",
+        })
 
     return
 

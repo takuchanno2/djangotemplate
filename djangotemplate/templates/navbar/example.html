@@ -5,16 +5,22 @@
 
 {% block content %}
 {% prepare_navbar as navitems %}
-{% for item in navitems %}
-  {% ifequal item.depth 0 %}
-  <h2>
-  {% if item.url %}
-    <a href="{{ item.url }}">{{ item.title }}</a>
-  {% else %}
-    {{ item.title }}
-  </h2>
-  {% endif %}
-  {% else %}
-  {% endifequal %}
-{% endfor %}
+
+
+{% with navitems|first as first_item %}
+  <h2>{{ first_item.title|make_link:first_item.url }}</h2>
+  <ul>
+    {% for item in navitems|slice:"1:" %}
+      {% if item.attribute != "end-sub" %}
+        <li>{{ item.title|make_link:item.url }}</li>
+        {% if item.attribute == "begin-sub" %}
+          <ul>
+        {% endif %}
+      {% else %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endwith %}
+
 {% endblock %}
