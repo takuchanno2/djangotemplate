@@ -3,28 +3,92 @@
 from django.conf import settings
 from importlib import import_module
 from collections import namedtuple
+from django.utils.encoding import python_2_unicode_compatible
 
-NavItem = namedtuple("NavItem", "title url icon subitems")
+# リスト形式に変換されたメニュー項目(NavListItem)一覧
 navitem_list = []
 
-NavListItem = namedtuple("NavListItem", "depth attribute title url icon active")
+class NavListItem:
+    """
+    メニューの1つ1つの項目を表現するクラス
+    depthが項目が配置された階層を表現し、メニュー構造をリスト+階層情報で表現する
+    子項目を持つ項目(親項目)のattributeには"begin-sub"が設定される
+    また、attributeが"end-sub"な要素は、子項目の終了位置を示す
+    """
+    def __init__(self, depth, title=None, url=None, icon=None, attribute=None, active=False):
+        self.depth = depth
+        self.title = title
+        self.url = url
+        self.icon = icon
+        self.attribute = attribute
+        self.active = active
 
-def add_navitem_recursively(navitem, list, depth=0):
-    list.append(NavListItem(
-        depth,
-        ("begin-sub" if navitem.subitems else None),
-        navitem.title, navitem.url, navitem.icon, False
-    ))
+    @python_2_unicode_compatible
+    def __str__(self):
+        return str(self.__dict__)
 
-    depth = depth + 1
+class NavItem:
+    """
+    メニューの1つ1つの項目を表現するクラス
+    メニュー構造をツリーで表現する
+    """
 
-    for subitem in navitem.subitems:
-        add_navitem_recursively(subitem, list, depth)
+    def __init__(self, title, url=None, icon=None, subitems=None):
+        self.title = title
+        self.url = url
+        self.icon = icon
+        self.subitems = subitems
 
-    if navitem.subitems:
-        list.append(NavListItem(depth, "end-sub", None, None, None, False))
+    def to_list_item(self):
+        return NavListItem(0, self.title, self.url, self.icon)
 
-    return
+    @staticmethod
+    def _add_to_list(list, item, depth=0):
+        list_item = item.to_list_item()
+        list_item.depth = depth
+        list_item.attribute = ("begin-sub" if item.subitems else None)
+        list.append(list_item)
+
+        depth = depth + 1
+
+        for subitem in item.subitems:
+            NavItem._add_to_list(list, subitem, depth)
+
+        if item.subitems:
+            list.append(NavListItem(depth, attribute="end-sub"))
+
+    def to_list2(self):
+        """
+        NavListItemのリスト形式に変換
+        """
+        list = []
+        NavItem._add_to_list(list, self)
+
+        if self.subitems:
+            list.append(NavListItem(0, attribute="end-sub"))
+
+        return list
+
+    def to_list(self):
+        """
+        深さ優先でトラバース
+        """
+
+        stack = [(0, self)]
+
+        while stack:
+            (depth, item) = stack.pop()
+            print((">" * depth) + " " + item.title)
+
+            depth = depth + 1
+            for sub in reversed(item.subitems):
+                stack.append((depth, sub))
+
+        return self.to_list2()
+    
+    @python_2_unicode_compatible
+    def __str__(self):
+        return str(self.__dict__)
         
 def construct_navbar_structure():
     try:
@@ -32,10 +96,7 @@ def construct_navbar_structure():
     except:
         raise
 
-    add_navitem_recursively(navitem_top, navitem_list)
-
-    if navitem_top.subitems:
-        navitem_list.append(NavListItem(0, "end-sub", None, None, None, False))
+    navitem_list = navitem_top.to_list()
 
     return
 
@@ -43,12 +104,11 @@ def construct_navbar_structure():
 def include(module, title=None, url=None, **kwargs):
     navitems = import_module(module).navitems
 
-    return NavItem(
-        title or navitems.title,
-        url or navitems.url, 
-        kwargs.get("icon") or navitems.icon,
-        navitems.subitems
-    )
+    navitems.title = title or navitems.title
+    navitems.url = url or navitems.url
+    navitems.icon = kwargs.get("icon") or navitems.icon
+
+    return navitems
 
 def navitem(title, url, *args, **kwargs):
     return NavItem(title, url, kwargs.get("icon"), args)

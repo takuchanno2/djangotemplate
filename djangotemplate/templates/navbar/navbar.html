@@ -1,0 +1,42 @@
+{% load navbar %}
+{% load bootstrap3 %}
+{% load url from future %}
+
+{% prepare_navbar as navitems %}
+
+<div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {% with navitems|first as first_item %}
+              <a class="navbar-brand" href="{{ first_item.url }}">{{ first_item.title }}</a>
+            {% endwith %}
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                    {% for item in navitems|slice:"1:" %}
+                      {% if item.attribute != "end-sub" %}
+                        {% if item.active %}
+                          <li class="active">{{ item|stylize }}</li>
+                        {% else %}
+                          <li>{{ item|stylize:True }}</li>
+                        {% endif %}
+                        {% if item.attribute == "begin-sub" %}
+                          <ul class="dropdown-menu">
+                        {% endif %}
+                      {% else %}
+                        </ul>
+                      {% endif %}
+                    {% endfor %}
+                <li class="active"><a href="">{% bootstrap_icon "home" %} Home</a></li>
+                <li><a href="">Task</a></li>
+                <li><a href="">Test</a></li>
+            </ul>
+            {% if not hide_user_button %}{% include "accounts/user-button.html" %}{% endif %}
+        </div>
+    </div>
+</div>

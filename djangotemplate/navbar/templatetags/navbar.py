@@ -3,6 +3,7 @@ from navbar import navitem_list, NavListItem
 from django.utils.safestring import mark_safe
 from django.utils.html import conditional_escape
 import copy
+from bootstrap3.templatetags import bootstrap3
 
 register = template.Library()
 
@@ -20,12 +21,12 @@ def prepare_navbar(context):
 @register.filter
 def stylize(item, autoescape=None):
     if item.icon:
-        icon = '<span class="glyphicon glyphicon-{icon}"></span> '.format(icon=conditional_escape(item.icon))
+        icon = bootstrap3.bootstrap_icon(conditional_escape(item.icon))
     else:
         icon = ""
 
     if item.url:
-        output = '{icon}<a href="{url}">{text}</a>'.format(icon=icon, text=conditional_escape(item.title), url=conditional_escape(item.url))
+        output = '<a href="{url}">{icon}{text}</a>'.format(icon=icon, text=conditional_escape(item.title), url=conditional_escape(url))
     else:
         output = icon + item.title
 

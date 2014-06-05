@@ -103,6 +103,7 @@
     <Content Include="templates\base\skeleton.html" />
     <Content Include="templates\main\sidebar.html" />
     <Content Include="templates\main\index.html" />
+    <Content Include="templates\navbar\navbar.html" />
     <Content Include="templates\navbar\index.html" />
   </ItemGroup>
   <ItemGroup>
