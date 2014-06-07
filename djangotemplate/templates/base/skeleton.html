@@ -7,15 +7,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}{% endblock %} - {{ project_name }}</title>
-  {% bootstrap_css %}
+  {# bootstrap_css #}
+  <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}" />
   <link rel="stylesheet" href="{% static "stylesheet.css" %}" />
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
 
-  {% bootstrap_javascript jquery=True %}
+  {# bootstrap_javascript jquery=True #}
+  <script src="{% static "jquery-2.1.1.min.js" %}"></script>
+  <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
   <script src="{% static "javascript.js" %}"></script>
 
   {% block extra_head %}{% endblock %}
