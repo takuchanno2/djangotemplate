@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'core',
     'accounts',
     'navbar',
+    'main',
     )
 
 MIDDLEWARE_CLASSES = (
@@ -96,6 +97,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = r'C:\Users\Yoshida\Desktop\staticfiles'
 
 # Auth settings
 LOGIN_REDIRECT_URL = reverse_lazy('index')

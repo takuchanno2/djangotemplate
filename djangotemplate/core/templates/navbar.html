@@ -22,7 +22,7 @@
         {% if item.attribute == "begin-sub" %}
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            {% if item.icon %}{% bootstrap_icon item.icon %}{% endif %}
+            {% if item.icon %}{% bootstrap_icon item.icon %} {% endif %}
             {{ item.title }}
              <b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -38,7 +38,7 @@
         {% endif %}
       {% endfor %}
       </ul>
-      {% if not hide_user_button %}{% include "accounts/user-button.html" %}{% endif %}
+      {% if not hide_user_button %}{% include "user-button.html" %}{% endif %}
     </div>
   </div>
 </div>

@@ -16,7 +16,7 @@ def prepare_navbar(context):
 @register.filter
 def stylize(item, autoescape=None):
     if item.icon:
-        icon = bootstrap3.bootstrap_icon(conditional_escape(item.icon))
+        icon = bootstrap3.bootstrap_icon(conditional_escape(item.icon)) + " "
     else:
         icon = ""
 

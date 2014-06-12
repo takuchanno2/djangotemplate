@@ -8,10 +8,10 @@
 <ul class="nav navbar-nav navbar-right">
   <li class="dropdown">
     {% if user.is_staff %}
-      <button type="button" class="btn btn-warning navbar-btn dropdown-toggle" data-toggle="dropdown">
+      <button type="button" class="btn btn-warning navbar-btn dropdown-toggle user-button" data-toggle="dropdown">
       {% bootstrap_icon "cog" %}
     {% else %}
-      <button type="button" class="btn btn-info navbar-btn dropdown-toggle" data-toggle="dropdown">
+      <button type="button" class="btn btn-info navbar-btn dropdown-toggle user-button" data-toggle="dropdown">
       {% bootstrap_icon "user" %} 
     {% endif %}
     {{ user.username }}
@@ -30,7 +30,7 @@
 {% else %}
 <ul class="nav navbar-nav navbar-right">
   <li class="dropdown">
-  <button type="button" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown">ログイン</button>
+  <button type="button" class="btn btn-default navbar-btn dropdown-toggle user-button" data-toggle="dropdown">ログイン</button>
   <div class="dropdown-menu">
     <form action="{% url "accounts:login" %}" method="post" id="dropdown-login-form">
       <fieldset>
