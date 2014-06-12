@@ -1,22 +1,17 @@
 from django import template
-from navbar import navitem_list, NavListItem
+from navbar import navitem_top, NavListItem
 from django.utils.safestring import mark_safe
 from django.utils.html import conditional_escape
 import copy
 from bootstrap3.templatetags import bootstrap3
 
+import time
+
 register = template.Library()
 
 @register.assignment_tag(takes_context=True)
 def prepare_navbar(context):
-    result = []
-    for item in navitem_list:
-        if item.url == context["request"].path:
-            result.append(NavListItem(item.depth, item.title, item.url, item.icon, item.attribute, True))
-        else:
-            result.append(item)
-
-    return result
+    return list(navitem_top.get_iter(context["request"].path))
 
 @register.filter
 def stylize(item, autoescape=None):

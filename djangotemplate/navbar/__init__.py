@@ -5,8 +5,10 @@ from importlib import import_module
 from collections import namedtuple
 from django.utils.encoding import python_2_unicode_compatible
 
-# リスト形式に変換されたメニュー項目(NavListItem)一覧
-navitem_list = []
+import time
+
+# NavBarの先頭要素
+navitem_top = None
 
 class NavListItem:
     """
@@ -39,37 +41,10 @@ class NavItem:
         self.icon = icon
         self.subitems = subitems
 
-    def to_list_item(self):
-        return NavListItem(0, self.title, self.url, self.icon)
+    def __iter__(self):
+        return self.get_iter(self, None)
 
-    @staticmethod
-    def _add_to_list(list, item, depth=0):
-        list_item = item.to_list_item()
-        list_item.depth = depth
-        list_item.attribute = ("begin-sub" if item.subitems else None)
-        list.append(list_item)
-
-        depth = depth + 1
-
-        for subitem in item.subitems:
-            NavItem._add_to_list(list, subitem, depth)
-
-        if item.subitems:
-            list.append(NavListItem(depth, attribute="end-sub"))
-
-    def to_list2(self):
-        """
-        NavListItemのリスト形式に変換
-        """
-        list = []
-        NavItem._add_to_list(list, self)
-
-        if self.subitems:
-            list.append(NavListItem(0, attribute="end-sub"))
-
-        return list
-
-    def to_list(self):
+    def get_iter(self, active_url = None):
         """
         深さ優先でトラバース
         """
@@ -78,13 +53,18 @@ class NavItem:
 
         while stack:
             (depth, item) = stack.pop()
-            print((">" * depth) + " " + item.title)
 
-            depth = depth + 1
-            for sub in reversed(item.subitems):
-                stack.append((depth, sub))
+            if not item:
+                yield NavListItem(depth, attribute="end-sub")   
+            else:
+                yield NavListItem(depth, item.title, item.url, item.icon, ("begin-sub" if item.subitems else None), (item.url == active_url))
 
-        return self.to_list2()
+                if item.subitems:
+                    stack.append((depth, None))
+
+                    depth = depth + 1
+                    for sub in reversed(item.subitems):
+                        stack.append((depth, sub))
     
     @python_2_unicode_compatible
     def __str__(self):
@@ -92,12 +72,10 @@ class NavItem:
         
 def construct_navbar_structure():
     try:
+        global navitem_top
         navitem_top = import_module(settings.ROOT_NAVBAR_CONF).navitems
     except:
         raise
-
-    global navitem_list
-    navitem_list = navitem_top.to_list()
 
     return
 
