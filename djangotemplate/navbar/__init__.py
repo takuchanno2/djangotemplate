@@ -96,6 +96,7 @@ def construct_navbar_structure():
     except:
         raise
 
+    global navitem_list
     navitem_list = navitem_top.to_list()
 
     return

@@ -12,7 +12,7 @@ def prepare_navbar(context):
     result = []
     for item in navitem_list:
         if item.url == context["request"].path:
-            result.append(NavListItem(item.depth, item.attribute, item.title, item.url, item.icon, True))
+            result.append(NavListItem(item.depth, item.title, item.url, item.icon, item.attribute, True))
         else:
             result.append(item)
 
@@ -26,7 +26,7 @@ def stylize(item, autoescape=None):
         icon = ""
 
     if item.url:
-        output = '<a href="{url}">{icon}{text}</a>'.format(icon=icon, text=conditional_escape(item.title), url=conditional_escape(url))
+        output = '<a href="{url}">{icon}{text}</a>'.format(icon=icon, text=conditional_escape(item.title), url=conditional_escape(item.url))
     else:
         output = icon + item.title
 
