@@ -1,3 +1,5 @@
+# coding:utf-8
+
 from django.contrib import admin
 # from accounts.models import LabMember
 
@@ -24,8 +26,8 @@ class LabMemberCreationForm(UserCreationForm):
         self.fields["last_name"].required = True
         self.fields["email"].required = True
 
-    # ‚±‚Ìƒƒ\ƒbƒh‚ğƒI[ƒo[ƒ[ƒh‚µ‚È‚¢‚ÆA
-    # Œ³X‚ÌUserƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚µ‚æ‚¤‚Æ‚·‚é‚¨’ƒ–Ú‚ÈDjango‚³‚ñ
+    # ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰ã—ãªã„ã¨ã€
+    # å…ƒã€…ã®Userã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã—ã‚ˆã†ã¨ã™ã‚‹ãŠèŒ¶ç›®ãªDjangoã•ã‚“
     def clean_username(self):
         username = self.cleaned_data["username"]
         try:
@@ -61,5 +63,8 @@ class LabMemberAdmin(UserAdmin):
             'fields': ('last_name', 'first_name', 'email', 'year_in_school')}
          ),
     )
+
+    list_display = ('username', 'year_in_school', 'last_name', 'first_name', 'email', 'is_staff')
+    list_filter = ('year_in_school', 'groups', 'is_staff', 'is_superuser', 'is_active')
 
 admin.site.register(LabMember, LabMemberAdmin)
