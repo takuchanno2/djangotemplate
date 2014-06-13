@@ -49,6 +49,7 @@
     <Compile Include="accounts\__init__.py" />
     <Compile Include="core\context_processors.py" />
     <Compile Include="core\settings.py" />
+    <Compile Include="core\user.py" />
     <Compile Include="navbar\navitems.py" />
     <Compile Include="navbar\templatetags\navbar.py" />
     <Compile Include="navbar\templatetags\__init__.py" />
